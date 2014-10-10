@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block mainhead %}
+<title>留言板</title>
+<style>
+ #mylist {
+    list-style-type:none;
+    margin:0;
+    padding:10px 100px 10px 100px;
+ }
+ #mylist li span {
+    float:right;
+ }
+
+ h1 {
+    text-align:center;
+ }
+ #myform {
+    text-align:center;
+ }
+ input {
+    border:10;
+    padding:1px 0px 0px 10px;
+    font-size:18px;
+    text-align:center;
+    
+ }
+ input[type="submit"] {
+    color:black;
+    text-align:center;
+ }
+</style>
+
+{% endblock %}
+
+{% block mainbody %}
+
+<h1>Hello, {{ name }}</h1>
+</br>
+
+<ul id="mylist">
+{% for item in messages %}
+<li> {{ item.msg }} <span>{{ item.mtime | date:"H:i:s,M j,Y" }}</span> </li>
+</br>
+{% endfor %}
+</br>
+</ul>
+
+<form id="myform" action="/m/" method="post">
+  {% csrf_token %}
+  <input size="115" type="text" placeholder="留下点什么，please.." name="msg" required="required">
+  <input type="submit" value="submit">
+</form>
+</br>
+<a href = "/accounts/logout"> 登出 </a>
+{% endblock %}
